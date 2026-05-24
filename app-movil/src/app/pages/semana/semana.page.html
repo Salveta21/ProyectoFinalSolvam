@@ -1,0 +1,141 @@
+<!-- Página Semana: vista semanal con selector de día y tarjetas de toma -->
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Semana</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Spinner mientras cargamos datos -->
+  <div *ngIf="loading" class="center-spinner">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+  </div>
+
+  <!-- ========== DIETA GENERAL ========== -->
+  <!-- La dieta general es igual todos los días, así que solo mostramos una vez -->
+  <ng-container *ngIf="!loading && tipo === 'general' && dietaGeneral">
+    <div class="section-header">Tu protocolo es igual todos los días</div>
+
+    <ion-card class="cat-card">
+      <ion-card-header>
+        <ion-card-title class="cat-title">Ingredientes permitidos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-chip *ngFor="let ing of dietaGeneral.ingredientes" color="success" outline>
+          {{ ing.nombre }}
+        </ion-chip>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="dietaGeneral.agua" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">💧 Agua diaria</ion-card-title></ion-card-header>
+      <ion-card-content>{{ dietaGeneral.agua }}</ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="dietaGeneral.complementos" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">💊 Suplementos</ion-card-title></ion-card-header>
+      <ion-card-content>{{ dietaGeneral.complementos }}</ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="dietaGeneral.no_permitidos.length" class="no-comer-card">
+      <ion-card-header><ion-card-title class="cat-title">🚫 No comer</ion-card-title></ion-card-header>
+      <ion-card-content>
+        <ion-chip *ngFor="let nc of dietaGeneral.no_permitidos" color="danger" outline>{{ nc }}</ion-chip>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <!-- ========== DIETA SEMANAL ========== -->
+  <ng-container *ngIf="!loading && tipo === 'semanal' && semanal">
+
+    <!-- Selector de días: scroll horizontal con botones Lun/Mar/... -->
+    <div class="dia-selector">
+      <button
+        *ngFor="let d of dias"
+        class="dia-btn"
+        [class.activo]="diaSeleccionado === d"
+        [class.hoy]="d === hoyDia && diaSeleccionado !== d"
+        (click)="seleccionarDia(d)"
+      >
+        <!-- Mostramos las 3 primeras letras del nombre del día -->
+        <span class="dia-btn-label">{{ diaLabels[d].slice(0,3) }}</span>
+        <!-- Punto azul bajo el día actual -->
+        <span class="hoy-dot" *ngIf="d === hoyDia"></span>
+      </button>
+    </div>
+
+    <!-- Título del día seleccionado con etiqueta "Hoy" si es el día actual -->
+    <div class="dia-titulo">
+      {{ diaLabels[diaSeleccionado] }}
+      <span class="hoy-tag" *ngIf="diaSeleccionado === hoyDia">Hoy</span>
+    </div>
+
+    <!-- Tarjetas de cada toma activa (solo si tienen datos) -->
+    <ng-container *ngFor="let toma of tomasActivas">
+      <ion-card class="toma-card" *ngIf="tieneDatos(diaSeleccionado, toma)">
+        <ion-card-header>
+          <div class="toma-header-row">
+            <ion-card-subtitle class="toma-subtitle">{{ tomaLabels[toma] }}</ion-card-subtitle>
+            <!-- Badge "Ahora" si es la toma activa del día actual -->
+            <span class="badge-ahora" *ngIf="diaSeleccionado === hoyDia && toma === tomaActualKey">Ahora</span>
+          </div>
+        </ion-card-header>
+        <ion-card-content>
+          <!-- Combinaciones del plato -->
+          <div *ngFor="let combo of getTomaDia(diaSeleccionado, toma).combinaciones; let last = last" class="combo-block">
+            <div class="combo-row">
+              <span class="combo-label">Plato principal</span>
+              <span class="combo-val">
+                {{ combo.principal }}
+                <span class="combo-qty" *ngIf="combo.cantidad_principal"> · {{ combo.cantidad_principal }}g</span>
+              </span>
+            </div>
+            <div *ngIf="combo.complemento" class="combo-sep"></div>
+            <div class="combo-row" *ngIf="combo.complemento">
+              <span class="combo-label">Complemento</span>
+              <span class="combo-val">
+                {{ combo.complemento }}
+                <span class="combo-qty" *ngIf="combo.cantidad_complemento"> · {{ combo.cantidad_complemento }}g</span>
+              </span>
+            </div>
+            <div class="combo-block-sep" *ngIf="!last"></div>
+          </div>
+          <!-- Ingredientes sueltos -->
+          <ion-chip *ngFor="let s of getTomaDia(diaSeleccionado, toma).sueltos" color="success" outline>
+            {{ s }}
+          </ion-chip>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <!-- Mensaje si el día seleccionado no tiene ningún alimento -->
+    <div *ngIf="diaVacio(diaSeleccionado)" class="empty-dia">
+      Sin alimentos asignados para el {{ diaLabels[diaSeleccionado] | lowercase }}.
+    </div>
+
+    <ion-card *ngIf="semanal.agua" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">💧 Agua diaria</ion-card-title></ion-card-header>
+      <ion-card-content>{{ semanal.agua }}</ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="semanal.complementos" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">💊 Suplementos</ion-card-title></ion-card-header>
+      <ion-card-content>{{ semanal.complementos }}</ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="semanal.no_permitidos.length" class="no-comer-card">
+      <ion-card-header><ion-card-title class="cat-title">🚫 No comer</ion-card-title></ion-card-header>
+      <ion-card-content>
+        <ion-chip *ngFor="let nc of semanal.no_permitidos" color="danger" outline>{{ nc }}</ion-chip>
+      </ion-card-content>
+    </ion-card>
+
+  </ng-container>
+
+  <div class="bottom-pad"></div>
+</ion-content>

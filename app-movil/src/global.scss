@@ -1,0 +1,122 @@
+@import "@ionic/angular/css/core.css";
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+:root {
+  --ion-font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --ion-background-color: #f2f2f7;
+  --ion-text-color: #1c1c1e;
+
+  --ion-color-primary:          #007AFF;
+  --ion-color-primary-rgb:      0,122,255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade:    #006be0;
+  --ion-color-primary-tint:     #1a83ff;
+
+  --ion-color-success:          #34C759;
+  --ion-color-success-rgb:      52,199,89;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-shade:    #2daf4e;
+  --ion-color-success-tint:     #48cc6b;
+
+  --ion-color-danger:           #FF3B30;
+  --ion-color-danger-rgb:       255,59,48;
+  --ion-color-danger-contrast:  #ffffff;
+  --ion-color-danger-shade:     #e03429;
+  --ion-color-danger-tint:      #ff544b;
+
+  --ion-toolbar-background:     rgba(242,242,247,0.88);
+  --ion-toolbar-color:          #1c1c1e;
+  --ion-toolbar-border-color:   rgba(60,60,67,0.12);
+
+  --ion-tab-bar-background:     rgba(255,255,255,0.9);
+  --ion-tab-bar-border-color:   rgba(60,60,67,0.12);
+  --ion-tab-bar-color:          #8e8e93;
+  --ion-tab-bar-color-selected: #007AFF;
+
+  --ion-item-background:        #ffffff;
+  --ion-card-background:        #ffffff;
+}
+
+ion-content {
+  --background: #f2f2f7;
+}
+
+ion-header ion-toolbar {
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+ion-tab-bar {
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+ion-card {
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  margin: 10px 16px;
+}
+
+/* ── Dark mode ──────────────────────────── */
+body.dark {
+  color-scheme: dark;
+
+  --ion-background-color: #000000;
+  --ion-background-color-rgb: 0,0,0;
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255,255,255;
+
+  --ion-toolbar-background: rgba(28,28,30,0.88);
+  --ion-toolbar-color: #ffffff;
+  --ion-toolbar-border-color: rgba(255,255,255,0.08);
+
+  --ion-tab-bar-background: rgba(28,28,30,0.92);
+  --ion-tab-bar-border-color: rgba(255,255,255,0.08);
+  --ion-tab-bar-color: #636366;
+  --ion-tab-bar-color-selected: #0a84ff;
+
+  --ion-item-background: #1c1c1e;
+  --ion-card-background: #1c1c1e;
+
+  --ion-color-primary: #0a84ff;
+  --ion-color-primary-rgb: 10,132,255;
+  --ion-color-success: #30d158;
+  --ion-color-success-rgb: 48,209,88;
+  --ion-color-danger: #ff453a;
+  --ion-color-danger-rgb: 255,69,58;
+}
+
+body.dark ion-content {
+  --background: #000000;
+}
+
+body.dark ion-card {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+body.dark ion-alert {
+  --background: #1c1c1e;
+  --color: #ffffff;
+}
+
+body.dark .alert-wrapper {
+  background: #1c1c1e !important;
+}
+
+body.dark .alert-title,
+body.dark .alert-sub-title,
+body.dark .alert-message {
+  color: #ffffff !important;
+}
+
+body.dark .alert-button {
+  color: #0a84ff;
+}

@@ -1,0 +1,24 @@
+<!-- Shell de tabs: ion-tabs gestiona qué página se muestra según la pestaña activa -->
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+
+    <!-- Tab Hoy: muestra la toma activa del momento -->
+    <ion-tab-button tab="hoy" href="/tabs/hoy">
+      <ion-icon name="today-outline"></ion-icon>
+      <ion-label>Hoy</ion-label>
+    </ion-tab-button>
+
+    <!-- Tab Semana: vista completa de los 7 días -->
+    <ion-tab-button tab="semana" href="/tabs/semana">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-label>Semana</ion-label>
+    </ion-tab-button>
+
+    <!-- Tab Perfil: datos del paciente y ajustes -->
+    <ion-tab-button tab="perfil" href="/tabs/perfil">
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-label>Perfil</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>

@@ -1,0 +1,155 @@
+// Estilos de la página Hoy
+.center-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.error-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  color: var(--ion-color-danger);
+  ion-icon { font-size: 2.5rem; margin-bottom: 8px; }
+  p { font-size: 0.95rem; color: var(--ion-text-color); margin: 0 0 12px; }
+}
+
+// ── Sección hero (saludo + toma activa) ─────────────────────────────────────
+.hero-section {
+  padding: 28px 20px 12px;
+
+  .hero-saludo {
+    font-size: 0.88rem;
+    color: #8e8e93;
+    font-weight: 500;
+    margin: 0 0 10px;
+  }
+
+  .hero-toma-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .hero-emoji { font-size: 2.2rem; }
+
+  .hero-nombre {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ion-text-color);
+    letter-spacing: -0.5px;
+  }
+
+  .hero-dia {
+    font-size: 1rem;
+    color: #8e8e93;
+    font-weight: 500;
+    margin: 4px 0 0;
+  }
+}
+
+// ── Grid 3x2 de tomas del día ────────────────────────────────────────────────
+.toma-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 4px 16px 16px;
+}
+
+.toma-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 9px 6px 7px;
+  border-radius: 12px;
+  background: var(--ion-item-background);
+  gap: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+
+  .pill-emoji { font-size: 1.1rem; }
+
+  .pill-text {
+    font-size: 0.58rem;
+    color: #8e8e93;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  // La toma activa se resalta con el color primario de la app
+  &.activa {
+    background: var(--ion-color-primary);
+    box-shadow: 0 2px 8px rgba(0,122,255,0.35);
+    .pill-text { color: rgba(255,255,255,0.85); }
+  }
+}
+
+// ── Tarjetas ─────────────────────────────────────────────────────────────────
+.cat-card, .combo-card, .no-comer-card, .empty-card {
+  --background: var(--ion-item-background);
+}
+
+.cat-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ion-text-color);
+}
+
+ion-chip { margin: 4px; }
+
+// ── Combinaciones (borde azul = plato + complemento) ─────────────────────────
+.combo-card {
+  border-left: 3px solid var(--ion-color-primary);
+  ion-card-content { padding: 14px 16px; }
+}
+
+.combo-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+  &:last-child { margin-bottom: 0; }
+}
+
+.combo-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--ion-color-primary);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.combo-val {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ion-text-color);
+}
+
+.combo-qty {
+  font-weight: 400;
+  color: #8e8e93;
+}
+
+.combo-sep {
+  height: 1px;
+  background: rgba(128,128,128,0.15);
+  margin: 8px 0;
+}
+
+// ── No comer (borde rojo) ─────────────────────────────────────────────────────
+.no-comer-card { border-left: 3px solid var(--ion-color-danger); }
+
+// ── Estado vacío ──────────────────────────────────────────────────────────────
+.empty-toma {
+  color: #aeaeb2;
+  font-style: italic;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.9rem;
+}
+
+.bottom-pad { height: 20px; }

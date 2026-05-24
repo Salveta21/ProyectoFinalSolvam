@@ -1,0 +1,303 @@
+/* ============================================
+   SANS CLINIQUE — Apple-inspired Design System
+   ============================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* ── Navbar ─────────────────────────────────── */
+.apple-nav {
+    background: rgba(255,255,255,.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0 32px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+.apple-nav .brand {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    text-decoration: none;
+    letter-spacing: -.3px;
+}
+.apple-nav .nav-links {
+    display: flex;
+    gap: 24px;
+    margin-left: auto;
+    align-items: center;
+}
+.apple-nav .nav-links a {
+    font-size: .875rem;
+    color: #555;
+    text-decoration: none;
+    transition: color .15s;
+}
+.apple-nav .nav-links a:hover { color: #000; }
+.apple-nav .nav-links a.active { color: #0071e3; font-weight: 600; }
+
+/* ── Layout ──────────────────────────────────── */
+.ac-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 24px 64px;
+}
+.ac-wrap-md {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 36px 24px 64px;
+}
+
+/* ── Page header ─────────────────────────────── */
+.ac-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.ac-page-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -.5px;
+    color: #1d1d1f;
+    margin: 0;
+    line-height: 1.15;
+}
+.ac-page-sub {
+    font-size: .875rem;
+    color: #6e6e73;
+    margin: 4px 0 0;
+}
+
+/* ── Card ────────────────────────────────────── */
+.ac-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 8px 24px rgba(0,0,0,.07);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+}
+.ac-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f0f0f2;
+    margin-bottom: 20px;
+}
+.ac-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    letter-spacing: -.2px;
+    margin: 0;
+}
+
+/* ── Stats grid ──────────────────────────────── */
+.ac-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+@media (max-width: 640px) { .ac-stats { grid-template-columns: 1fr; } }
+.ac-stat {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 8px 24px rgba(0,0,0,.07);
+    padding: 28px 24px;
+    text-align: center;
+}
+.ac-stat-icon { font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
+.ac-stat-num  { font-size: 2.4rem; font-weight: 700; letter-spacing: -.6px; line-height: 1; margin-bottom: 4px; }
+.ac-stat-label { font-size: .82rem; color: #6e6e73; margin-bottom: 18px; }
+
+/* ── Table ───────────────────────────────────── */
+.ac-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.ac-table thead th {
+    background: #f5f5f7;
+    color: #6e6e73;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e5e5ea;
+}
+.ac-table tbody td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #f2f2f7;
+    vertical-align: middle;
+}
+.ac-table tbody tr:last-child td { border-bottom: none; }
+.ac-table tbody tr:hover td { background: #fafafa; }
+
+/* ── Form controls ───────────────────────────── */
+.ac-label {
+    display: block;
+    font-size: .72rem;
+    font-weight: 600;
+    color: #6e6e73;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+.ac-input, .ac-select, .ac-textarea {
+    width: 100%;
+    border: 1.5px solid #d2d2d7;
+    border-radius: 10px;
+    padding: 10px 13px;
+    font-size: .93rem;
+    font-family: inherit;
+    color: #1d1d1f;
+    background: #fafafa;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.ac-input:focus, .ac-select:focus, .ac-textarea:focus {
+    border-color: #0071e3;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0,113,227,.12);
+}
+.ac-input::placeholder, .ac-textarea::placeholder { color: #aeaeb2; }
+.ac-textarea { resize: vertical; }
+
+/* ── Buttons ─────────────────────────────────── */
+.ac-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: .875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: all .15s;
+    white-space: nowrap;
+    line-height: 1.4;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.ac-btn:active { transform: scale(.97); }
+
+.ac-btn-blue  { background: #0071e3; color: #fff !important; }
+.ac-btn-blue:hover { background: #0077ed; }
+.ac-btn-green { background: #30d158; color: #fff !important; }
+.ac-btn-green:hover { background: #28b84d; }
+.ac-btn-red   { background: #ff3b30; color: #fff !important; }
+.ac-btn-red:hover { background: #d93025; }
+.ac-btn-gray  { background: #f0f0f2; color: #1d1d1f !important; border: 1px solid #d2d2d7; }
+.ac-btn-gray:hover { background: #e5e5ea; }
+.ac-btn-outline { background: transparent; color: #0071e3 !important; border: 1.5px solid #d2d2d7; }
+.ac-btn-outline:hover { background: #f5f5f7; }
+
+.ac-btn-sm { padding: 5px 12px; font-size: .78rem; border-radius: 6px; }
+.ac-btn-lg { padding: 13px 24px; font-size: 1rem; border-radius: 10px; }
+
+/* ── Badges ──────────────────────────────────── */
+.ac-badge {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: .72rem;
+    font-weight: 600;
+}
+.ac-badge-green { background: #d1f5da; color: #1a7a34; }
+.ac-badge-red   { background: #ffe0de; color: #c0392b; }
+.ac-badge-blue  { background: #d6eaff; color: #0055b3; }
+.ac-badge-gray  { background: #f0f0f2; color: #6e6e73; }
+
+/* ── Alert ───────────────────────────────────── */
+.ac-alert {
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: .88rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+.ac-alert-success { background: #d1f5da; color: #1a7a34; border: 1px solid #a3e5b4; }
+.ac-alert-error   { background: #ffe0de; color: #c0392b; border: 1px solid #ffc2be; }
+
+/* ── Chips (No comer) ────────────────────────── */
+.chips-row { display: flex; flex-wrap: wrap; gap: 8px; min-height: 32px; }
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: .83rem;
+    font-weight: 600;
+}
+.chip-red {
+    background: #ffe0de;
+    color: #c0392b;
+    border: 1px solid #ffc2be;
+}
+.chip-red button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: .9rem;
+    padding: 0;
+    line-height: 1;
+    color: #c0392b;
+    display: flex;
+    align-items: center;
+}
+.chip-red button:hover { color: #7f0000; }
+
+/* ── Checkbox grid (dieta_ver) ───────────────── */
+.checks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 2px;
+}
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .88rem;
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #1d1d1f;
+    transition: background .12s;
+}
+.check-item:hover { background: #f5f5f7; }
+.check-item input[type="checkbox"] {
+    accent-color: #30d158;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* ── Print ───────────────────────────────────── */
+@media print {
+    .no-print { display: none !important; }
+    .apple-nav { display: none !important; }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "proyecto-dieta-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

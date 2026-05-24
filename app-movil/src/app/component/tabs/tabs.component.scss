@@ -1,0 +1,11 @@
+// Estilos de la barra de pestañas inferior
+ion-tab-bar {
+  height: 56px;
+  // Respetamos el área segura en dispositivos con notch inferior (iPhone X+)
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+ion-tab-button {
+  ion-label { font-size: 0.68rem; font-weight: 500; }
+  ion-icon   { font-size: 1.4rem; }
+}

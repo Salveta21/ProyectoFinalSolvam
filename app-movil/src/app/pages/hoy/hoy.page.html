@@ -1,0 +1,149 @@
+<!-- Página Hoy: muestra la toma activa del momento actual -->
+<ion-header translucent>
+  <ion-toolbar>
+    <!-- Mostramos la fecha real en el título -->
+    <ion-title>{{ fechaHoy }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <!-- Pull-to-refresh: el paciente puede bajar para actualizar sus datos -->
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Spinner de carga -->
+  <div *ngIf="loading" class="center-spinner">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+  </div>
+
+  <!-- Mensaje de error con botón para reintentar -->
+  <div *ngIf="!loading && error" class="error-block">
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <p>{{ error }}</p>
+    <ion-button size="small" fill="clear" (click)="cargar()">Reintentar</ion-button>
+  </div>
+
+  <!-- ========== DIETA SEMANAL ========== -->
+  <ng-container *ngIf="!loading && !error && tipo === 'semanal' && tomaData">
+
+    <!-- Cabecera con saludo y toma activa -->
+    <div class="hero-section">
+      <p class="hero-saludo">{{ saludo }}, {{ clienteNombre }}</p>
+      <div class="hero-toma-row">
+        <span class="hero-emoji">{{ tomaIconos[tomaActual] }}</span>
+        <span class="hero-nombre">{{ tomaLabel }}</span>
+      </div>
+      <p class="hero-dia">{{ diaLabel }}</p>
+    </div>
+
+    <!-- Grid 3x2 con todas las tomas del día (la activa resaltada) -->
+    <div class="toma-timeline">
+      <div
+        *ngFor="let t of tomasActivas"
+        class="toma-pill"
+        [class.activa]="t === tomaActual"
+      >
+        <span class="pill-emoji">{{ tomaIconos[t] }}</span>
+        <span class="pill-text">{{ tomaLabels[t] }}</span>
+      </div>
+    </div>
+
+    <!-- Si la toma no tiene alimentos asignados -->
+    <ion-card *ngIf="tomaData.combinaciones.length === 0 && tomaData.sueltos.length === 0" class="empty-card">
+      <ion-card-content class="empty-toma">Sin alimentos asignados para esta toma.</ion-card-content>
+    </ion-card>
+
+    <!-- Combinaciones (plato principal + complemento) -->
+    <ion-card *ngFor="let combo of tomaData.combinaciones" class="combo-card">
+      <ion-card-content>
+        <div class="combo-row">
+          <span class="combo-label">Plato principal</span>
+          <span class="combo-val">
+            {{ combo.principal }}
+            <span class="combo-qty" *ngIf="combo.cantidad_principal"> · {{ combo.cantidad_principal }}g</span>
+          </span>
+        </div>
+        <div *ngIf="combo.complemento" class="combo-sep"></div>
+        <div class="combo-row" *ngIf="combo.complemento">
+          <span class="combo-label">Complemento</span>
+          <span class="combo-val">
+            {{ combo.complemento }}
+            <span class="combo-qty" *ngIf="combo.cantidad_complemento"> · {{ combo.cantidad_complemento }}g</span>
+          </span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Ingredientes sueltos de la toma -->
+    <ion-card *ngIf="tomaData.sueltos.length" class="cat-card">
+      <ion-card-header>
+        <ion-card-title class="cat-title">Alimentos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-chip *ngFor="let s of tomaData.sueltos" color="success" outline>{{ s }}</ion-chip>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Agua diaria (si está configurada) -->
+    <ion-card *ngIf="dietaAgua" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">💧 Agua diaria</ion-card-title></ion-card-header>
+      <ion-card-content>{{ dietaAgua }}</ion-card-content>
+    </ion-card>
+
+    <!-- Suplementos (si están configurados) -->
+    <ion-card *ngIf="dietaComplementos" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">💊 Suplementos</ion-card-title></ion-card-header>
+      <ion-card-content>{{ dietaComplementos }}</ion-card-content>
+    </ion-card>
+
+  </ng-container>
+
+  <!-- ========== DIETA GENERAL ========== -->
+  <ng-container *ngIf="!loading && !error && tipo === 'general' && dietaGeneral">
+
+    <div class="hero-section">
+      <p class="hero-saludo">{{ saludo }}, {{ clienteNombre }}</p>
+      <div class="hero-toma-row">
+        <span class="hero-emoji">🥗</span>
+        <span class="hero-nombre">Protocolo diario</span>
+      </div>
+    </div>
+
+    <!-- Una tarjeta por cada categoría de ingredientes -->
+    <ion-card *ngFor="let cat of categorias" class="cat-card">
+      <ion-card-header>
+        <ion-card-title class="cat-title">{{ getCatLabel(cat) }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-chip *ngFor="let ing of porCategoria[cat]" color="success" outline>{{ ing }}</ion-chip>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="dietaGeneral.nota_huevos" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">🥚 Huevos</ion-card-title></ion-card-header>
+      <ion-card-content>{{ dietaGeneral.nota_huevos }}</ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="dietaGeneral.agua" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">💧 Agua diaria</ion-card-title></ion-card-header>
+      <ion-card-content>{{ dietaGeneral.agua }}</ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="dietaGeneral.complementos" class="cat-card">
+      <ion-card-header><ion-card-title class="cat-title">💊 Suplementos</ion-card-title></ion-card-header>
+      <ion-card-content>{{ dietaGeneral.complementos }}</ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="dietaGeneral.no_permitidos.length" class="no-comer-card">
+      <ion-card-header><ion-card-title class="cat-title">🚫 No comer</ion-card-title></ion-card-header>
+      <ion-card-content>
+        <ion-chip *ngFor="let nc of dietaGeneral.no_permitidos" color="danger" outline>{{ nc }}</ion-chip>
+      </ion-card-content>
+    </ion-card>
+
+  </ng-container>
+
+  <div class="bottom-pad"></div>
+</ion-content>

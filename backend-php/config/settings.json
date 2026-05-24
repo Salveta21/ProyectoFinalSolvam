@@ -1,0 +1,21 @@
+﻿{
+    "general": {
+        "empresa": "Proyecto Dieta"
+    },
+    "smtp": {
+        "host":      "smtp.gmail.com",
+        "port":      587,
+        "username":  "TU_CORREO@gmail.com",
+        "password":  "TU_APP_PASSWORD",
+        "from":      "TU_CORREO@gmail.com",
+        "from_name": "Proyecto Dieta"
+    },
+    "email_bienvenida": {
+        "asunto":          "Bienvenido/a a Proyecto Dieta – Tu codigo de acceso",
+        "saludo":          "Bienvenido/a, {nombre}!",
+        "intro":           "Ya formas parte de Proyecto Dieta. A continuacion encontraras tu codigo personal para acceder a tu dieta desde la app.",
+        "etiqueta_codigo": "Tu codigo de acceso",
+        "instrucciones":   "Introduce este codigo la primera vez que abras la app para ver tu dieta personalizada. Solo necesitaras hacerlo una vez.",
+        "pie":             "Este mensaje es automatico, por favor no respondas a este correo."
+    }
+}

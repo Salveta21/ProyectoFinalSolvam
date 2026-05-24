@@ -1,0 +1,83 @@
+﻿services:
+
+  # Servidor web PHP + Apache
+  web:
+    build:
+      context: ./docker
+    container_name: proyectosolvam-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend-php:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - solvam-net
+
+  # Base de datos MariaDB
+  # El schema.sql se importa automaticamente la primera vez que se crea el volumen
+  db:
+    image: mariadb:10.11
+    container_name: proyectosolvam-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root21.
+      MYSQL_DATABASE: clinica_dietas
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./base-de-datos/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - solvam-net
+
+  # phpMyAdmin para gestionar la BD visualmente
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: proyectosolvam-phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root21.
+    depends_on:
+      - db
+    networks:
+      - solvam-net
+
+  # App del paciente (Ionic compilada) — servida como sitio estatico
+  app:
+    image: nginx:alpine
+    container_name: proyectosolvam-app
+    ports:
+      - "8100:80"
+    volumes:
+      - ./app-movil/www:/usr/share/nginx/html:ro
+      - ./docker/nginx-app.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - solvam-net
+
+  # API REST Node.js
+  api:
+    image: node:20-alpine
+    container_name: proyectosolvam-api
+    working_dir: /app
+    command: sh -c "npm install --production && node server.js"
+    volumes:
+      - ./api-rest:/app
+    ports:
+      - "3002:3001"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: root21.
+      DB_NAME: clinica_dietas
+      PORT: 3001
+    depends_on:
+      - db
+    networks:
+      - solvam-net
+
+networks:
+  solvam-net:
+
+volumes:
+  db_data:

@@ -1,0 +1,76 @@
+// Estilos de la pantalla de entrada de código
+.codigo-content {
+  --background: var(--ion-background-color);
+}
+
+// Tarjeta central con el formulario
+.codigo-card {
+  max-width: 400px;
+  width: calc(100% - 40px); // márgenes laterales en pantallas estrechas
+  margin: 56px auto 0;
+  padding: 44px 28px 36px;
+  background: var(--ion-item-background);
+  border-radius: 22px;
+  box-shadow: 0 4px 28px rgba(0,0,0,0.09);
+  text-align: center;
+}
+
+.logo {
+  font-size: 3.8rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ion-text-color);
+  margin: 0 0 6px;
+  letter-spacing: -0.4px;
+  font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.subtitle {
+  font-size: 0.88rem;
+  color: #8e8e93;
+  margin-bottom: 28px;
+}
+
+// Input del código: letras grandes con espaciado para que se vea bien
+.codigo-input {
+  --background: var(--ion-background-color);
+  --color: var(--ion-text-color);
+  --placeholder-color: #8e8e93;
+  --border-radius: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.error-msg {
+  color: #FF3B30;
+  font-size: 0.85rem;
+  margin: 0 0 12px;
+}
+
+.btn-entrar {
+  --background: #007AFF;
+  --border-radius: 14px;
+  --box-shadow: 0 4px 14px rgba(0,122,255,0.35);
+  font-weight: 600;
+  font-size: 1rem;
+  height: 50px;
+  margin-bottom: 16px;
+}
+
+.help-text {
+  font-size: 0.78rem;
+  color: #aeaeb2;
+}

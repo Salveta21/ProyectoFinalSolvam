@@ -1,0 +1,32 @@
+<!-- Pantalla de bienvenida y entrada de código del paciente -->
+<ion-content class="codigo-content">
+  <div class="codigo-card">
+
+    <!-- Logo / icono de la app -->
+    <div class="logo">🥗</div>
+    <h1>{{ nombreEmpresa }}</h1>
+    <p class="subtitle">Introduce tu código de paciente</p>
+
+    <!-- Campo de texto para el código (8 caracteres, en mayúsculas) -->
+    <ion-input
+      [(ngModel)]="codigo"
+      type="text"
+      maxlength="8"
+      placeholder="Ej. AB3X9Z7Q"
+      class="codigo-input"
+      [disabled]="loading"
+      (keyup.enter)="entrar()"
+    ></ion-input>
+
+    <!-- Mensaje de error si el código no es válido -->
+    <p class="error-msg" *ngIf="error">{{ error }}</p>
+
+    <!-- Botón de entrar: muestra spinner mientras carga -->
+    <ion-button expand="block" (click)="entrar()" [disabled]="loading" class="btn-entrar">
+      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+      <span *ngIf="!loading">Entrar</span>
+    </ion-button>
+
+    <p class="help-text">Tu código te lo facilitó tu dietista</p>
+  </div>
+</ion-content>
