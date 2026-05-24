@@ -1,4 +1,4 @@
-# Sans Clinique — Guia de despliegue en local
+# Proyecto Dieta — Guia de despliegue en local
 
 Sistema de gestion de protocolos alimentarios formado por tres componentes:
 panel web PHP, API REST Node.js y app movil Ionic + Angular.

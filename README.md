@@ -1,4 +1,4 @@
-# Proyecto Dieta — Sans Clinique
+# Proyecto Dieta
 
 Sistema de gestión de protocolos alimentarios formado por tres componentes:
 panel web PHP, API REST Node.js y app móvil Ionic + Angular.
