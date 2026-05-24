@@ -224,29 +224,38 @@ Requiere Node.js 20 y la Ionic CLI instalada.
 
 > Los contenedores Docker deben estar en marcha antes de arrancar la app.
 
-**Paso 1** — Verificar Node.js:
+**Paso 1** — Verificar Node.js (en cualquier terminal):
 ```bash
 node --version   # debe mostrar v20.x.x o superior
 ```
 
-**Paso 2** — Instalar Ionic CLI (solo la primera vez):
+**Paso 2** — Instalar Ionic CLI (solo la primera vez, en cualquier terminal):
 ```bash
 npm install -g @ionic/cli
 ```
 
-**Paso 3** — Instalar dependencias (solo la primera vez):
+**Paso 3** — Abrir una terminal dentro de la carpeta `app-movil`.
+
+Desde la raiz del repositorio:
 ```bash
 cd app-movil
+```
+A partir de aqui todos los comandos siguientes se ejecutan dentro de esa carpeta.
+
+**Paso 4** — Instalar dependencias (solo la primera vez):
+```bash
 npm install
 ```
+Descarga todos los paquetes necesarios en `node_modules/`. Puede tardar 1-3 minutos.
+Las siguientes veces se puede saltar directamente al paso 5.
 
-**Paso 4** — Arrancar:
+**Paso 5** — Arrancar el servidor de desarrollo:
 ```bash
 ionic serve
 ```
 
 El navegador se abre automaticamente en http://localhost:8100.
-Pulsar `Ctrl + C` para parar.
+Pulsar `Ctrl + C` en esa misma terminal para parar.
 
 ### Introducir el codigo del paciente
 
